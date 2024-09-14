@@ -1,23 +1,25 @@
-import js from '@eslint/js';
-import svelte from 'eslint-plugin-svelte';
-import prettier from 'eslint-config-prettier';
-import globals from 'globals';
-
-/** @type {import('eslint').Linter.Config[]} */
+/** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
-	js.configs.recommended,
-	...svelte.configs['flat/recommended'],
-	prettier,
-	...svelte.configs['flat/prettier'],
+	/* ... */
 	{
+		files: ["**/*.svelte"],
 		languageOptions: {
-			globals: {
-				...globals.browser,
-				...globals.node
-			}
-		}
+			parserOptions: {
+				parser: ts.parser,
+			},
+		},
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/']
-	}
+		/* location of your components where you would like to apply these rules */
+		files: ["**/components/ui/**/*.svelte"],
+		rules: {
+			"@typescript-eslint/no-unused-vars": [
+				"warn",
+				{
+					argsIgnorePattern: "^_",
+					varsIgnorePattern: "^\$\$(Props|Events|Slots|Generic)$",
+				},
+			],
+		},
+	},
 ];

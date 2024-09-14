@@ -12,18 +12,41 @@
 
 	async function registerUser() {
 		// Handle form submission logic here
-		console.log('Form submitted with:', { name, email, password, age, countryCode, phoneNumber });
+		const formData = { name, email, password, age, countryCode, phoneNumber };
+		console.log('Form submitted with:', formData);
 
-		// Simulate server response
-		// Based on the response, you can redirect to the dashboard or onboarding page
-		// e.g. window.location.href = '/dashboard';
+		try {
+			const response = await fetch('/registerUser', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(formData)
+			});
+
+			const result = await response.json();
+
+			if (response.ok) {
+				// Redirect based on server response
+				if (result.onboarding) {
+					window.location.href = '/onboarding';
+				} else {
+					window.location.href = '/dashboard';
+				}
+			} else {
+				console.error('Registration failed', result.message);
+				alert(result.message); // Display error message
+			}
+		} catch (error) {
+			console.error('Error occurred:', error);
+			alert('An error occurred. Please try again.');
+		}
+		window.location.href = '/onBoarding';
 	}
 </script>
 
 <section class="login container mx-auto rounded-md w-[100vw] min-h-[100vh] p-4 flex">
 	<LoginImage name="Register"></LoginImage>
 	<div
-		class="login-left bg-slate-100 sm:basis-2/3 md:basis-1/2 px-10 flex flex-col justify-center mx-auto"
+		class="form-container bg-slate-100 sm:basis-2/3 md:basis-1/2 px-10 flex flex-col justify-center mx-auto"
 	>
 		<form
 			method="POST"

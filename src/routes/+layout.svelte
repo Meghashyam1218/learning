@@ -29,7 +29,7 @@
 	});
 </script>
 
-<slot />
+<slot></slot>
 
 <style>
 	@keyframes fade-in {

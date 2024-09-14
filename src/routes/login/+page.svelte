@@ -4,16 +4,23 @@
 	let email = '';
 	let password = '';
 	let rememberMe = false;
+	async function loginUser() {
+		// Handle form submission logic here
+		console.log('Form submitted with:', { email, password, rememberMe });
+
+		// Simulate server response
+		// Based on the response, you can redirect to the dashboard or onboarding page
+		// e.g. window.location.href = '/dashboard';
+	}
 </script>
 
 <section class="login container mx-auto rounded-md w-[100vw] min-h-[100vh] p-4 flex">
 	<LoginImage name="Login" />
 	<div
-		class="login-left bg-slate-100 sm:basis-2/3 md:basis-1/2 px-10 flex flex-col justify-center mx-auto"
+		class="form-container bg-slate-100 sm:basis-2/3 md:basis-1/2 px-10 flex flex-col justify-center mx-auto"
 	>
 		<form
-			method="POST"
-			on:submit={() => {}}
+			on:submit|preventDefault={loginUser}
 			class="mt-10 flex flex-col gap-4 mx-auto w-[100%] max-w-[400px]"
 		>
 			<div class="header">
