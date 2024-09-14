@@ -1,10 +1,7 @@
 <script lang="ts">
 	import GoalRangeSelect from './GoalRangeSelect.svelte';
-
 	import SelectGoals from './SelectGoals.svelte';
 	import LoginImage from '../../lib/components/LoginImage.svelte';
-	import type { DateRange } from 'bits-ui';
-	// import { flyAndScale } from '$lib/utils';
 	import { fly } from 'svelte/transition';
 	let counter = 0;
 	let items = ['Apple', 'Banana', 'Orange', 'Grapes', 'Pineapple', 'Mango', 'Strawberry'];
