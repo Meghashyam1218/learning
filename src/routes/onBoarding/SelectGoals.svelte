@@ -1,8 +1,6 @@
 <script>
 	import { fly } from 'svelte/transition';
-	import { flip } from 'svelte/animate';
 	import { crossfade } from 'svelte/transition';
-	const [send, receive] = crossfade({});
 	let searchQuery = '';
 	export let items = ['Apple', 'Banana', 'Orange', 'Grapes', 'Pineapple', 'Mango', 'Strawberry'];
 
@@ -44,11 +42,13 @@
 	function movefilteredItems(item) {
 		[selectedItems, filteredItems] = move(item, selectedItems, filteredItems);
 		items = filteredItems;
+		document.activeElement.blur();
 	}
 
 	function moveselectedItems(item) {
 		[filteredItems, selectedItems] = move(item, filteredItems, selectedItems);
 		items = filteredItems;
+		document.activeElement.blur();
 	}
 </script>
 
@@ -73,7 +73,7 @@
 		<h3 class="m-2 mb-1 text-lg font-medium">Selected Goals:</h3>
 		<div class="chips-container my-2 flex flex-wrap gap-4">
 			{#each selectedItems as item (item)}
-				<div in:receive={{ key: item }} out:send={{ key: item }} class="chip selected">
+				<div class="chip selected">
 					<label
 						for={item}
 						class="checkbox-label cursor-pointer rounded-2xl border-[1px] border-indigo-700 px-3 py-1 font-medium outline-1 outline-indigo-800 focus-within:bg-slate-50 focus-within:outline hover:bg-slate-50 hover:outline focus:bg-slate-50 focus:outline"
@@ -97,7 +97,7 @@
 		<h3 class="m-2 mb-1 text-lg font-medium">Available Goals:</h3>
 		<div class="chips-container my-2 flex flex-wrap gap-4">
 			{#each filteredItems as item, i ((item, i))}
-				<div in:receive={{ key: item }} out:send={{ key: item }} class="chip">
+				<div class="chip">
 					<label
 						for={item}
 						class="checkbox-label cursor-pointer rounded-2xl border-[1px] border-zinc-300 px-3 py-1 font-medium outline-1 outline-indigo-800 focus-within:bg-slate-50 focus-within:outline hover:bg-slate-50 hover:outline focus:bg-slate-50 focus:outline"
