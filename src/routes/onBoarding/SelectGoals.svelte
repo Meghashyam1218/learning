@@ -1,6 +1,8 @@
 <script>
 	import { fly } from 'svelte/transition';
-
+	import { flip } from 'svelte/animate';
+	import { crossfade } from 'svelte/transition';
+	const [send, receive] = crossfade({});
 	let searchQuery = '';
 	export let items = ['Apple', 'Banana', 'Orange', 'Grapes', 'Pineapple', 'Mango', 'Strawberry'];
 
@@ -30,24 +32,34 @@
 		);
 	}
 
-	// Function to handle checkbox selection
-	function toggleSelection(item) {
-		if (selectedItems.includes(item)) {
-			selectedItems = selectedItems.filter((i) => i !== item); // Remove from selected
-		} else {
-			selectedItems = [item, ...selectedItems]; // Add to the top of selected
-		}
-		updateFilteredItems(); // Update the filtered items after selection change
-	}
-
-	// Function to check if the item is selected
 	function isSelected(item) {
 		return selectedItems.includes(item);
 	}
+
+	function move(item, from, to) {
+		to.push(item);
+		return [from.filter((i) => i !== item), to];
+	}
+
+	function movefilteredItems(item) {
+		[selectedItems, filteredItems] = move(item, selectedItems, filteredItems);
+		items = filteredItems;
+	}
+
+	function moveselectedItems(item) {
+		[filteredItems, selectedItems] = move(item, filteredItems, selectedItems);
+		items = filteredItems;
+	}
 </script>
 
-<div transition:fly={{ duration: 300, x: 30 }} class="search-container mt-2 flex flex-col">
-	<label for="email" class="font-medium">Select Goals<span class="text-red-500">*</span> </label>
+<div
+	in:fly={{ delay: 500, duration: 300, x: -30 }}
+	out:fly={{ duration: 300, x: 30 }}
+	class="search-container mt-2 flex flex-col"
+>
+	<label for="email" class="text-lg font-medium text-indigo-800"
+		>Select Goals<span class="text-red-500">*</span>
+	</label>
 	<input
 		id="search"
 		name="search"
@@ -58,20 +70,20 @@
 	/>
 	<!-- Display selected items at the top -->
 	{#if selectedItems.length > 0}
-		<h3 class="m-2 mb-1 font-medium">Selected Goals:</h3>
+		<h3 class="m-2 mb-1 text-lg font-medium">Selected Goals:</h3>
 		<div class="chips-container my-2 flex flex-wrap gap-4">
 			{#each selectedItems as item (item)}
-				<div class="chip selected">
+				<div in:receive={{ key: item }} out:send={{ key: item }} class="chip selected">
 					<label
 						for={item}
-						class="checkbox-label cursor-pointer rounded-2xl border-[1px] border-zinc-500 px-3 py-1 outline-1 outline-indigo-800 focus-within:bg-slate-50 focus-within:outline hover:bg-slate-50 hover:outline focus:bg-slate-50 focus:outline"
+						class="checkbox-label cursor-pointer rounded-2xl border-[1px] border-indigo-700 px-3 py-1 font-medium outline-1 outline-indigo-800 focus-within:bg-slate-50 focus-within:outline hover:bg-slate-50 hover:outline focus:bg-slate-50 focus:outline"
 						>{item}<span class="remove ml-1">&times;</span><input
 							type="checkbox"
 							id={item}
 							name="goals"
 							value={item}
 							checked={isSelected(item)}
-							on:change={() => toggleSelection(item)}
+							on:change={() => movefilteredItems(item)}
 							class="visually-hidden"
 						/></label
 					>
@@ -82,19 +94,19 @@
 
 	<!-- Display filtered (unselected) items as checkboxes -->
 	{#if filteredItems.length > 0}
-		<h3 class="m-2 mb-1 font-medium">Available Goals:</h3>
+		<h3 class="m-2 mb-1 text-lg font-medium">Available Goals:</h3>
 		<div class="chips-container my-2 flex flex-wrap gap-4">
 			{#each filteredItems as item, i ((item, i))}
-				<div class="chip">
+				<div in:receive={{ key: item }} out:send={{ key: item }} class="chip">
 					<label
 						for={item}
-						class="checkbox-label cursor-pointer rounded-2xl border-[1px] border-zinc-300 px-3 py-1 outline-1 outline-indigo-800 focus-within:bg-slate-50 focus-within:outline hover:bg-slate-50 hover:outline focus:bg-slate-50 focus:outline"
+						class="checkbox-label cursor-pointer rounded-2xl border-[1px] border-zinc-300 px-3 py-1 font-medium outline-1 outline-indigo-800 focus-within:bg-slate-50 focus-within:outline hover:bg-slate-50 hover:outline focus:bg-slate-50 focus:outline"
 						>{item}<input
 							type="checkbox"
 							id={item}
 							value={item}
 							checked={isSelected(item)}
-							on:change={() => toggleSelection(item)}
+							on:change={() => moveselectedItems(item)}
 							class="visually-hidden"
 						/></label
 					>
@@ -114,10 +126,5 @@
 	.search-input {
 		background: url(/search.svg) no-repeat scroll 10px 10px;
 		padding-left: 35px;
-	}
-	.visually-hidden {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
 	}
 </style>

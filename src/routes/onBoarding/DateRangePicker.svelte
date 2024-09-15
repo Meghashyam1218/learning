@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { cn, flyAndScale } from '$lib/utils';
 	import { DateRangePicker, type DateRange } from 'bits-ui';
-
 	export let value: DateRange | undefined = undefined;
 </script>
 
 <DateRangePicker.Root bind:value weekdayFormat="short" fixedWeeks={true}>
-	<div class="flex w-full max-w-[320px] flex-col gap-1.5 rounded-md">
+	<div class="flex flex-col gap-1.5 rounded-md">
 		<DateRangePicker.Input
 			let:segments
-			class="h-input rounded-input border-border-input focus-within:border-border-input-hover focus-within:shadow-date-field-focus hover:border-border-input-hover flex w-full max-w-[320px] select-none items-center rounded-md border-[1px] border-zinc-700 px-2  py-3 text-sm tracking-[0.01em] text-foreground outline-indigo-700 focus-within:border-transparent focus-within:outline"
+			class="h-input rounded-input border-border-input focus-within:border-border-input-hover focus-within:shadow-date-field-focus hover:border-border-input-hover flex select-none  items-center justify-evenly rounded-md border-[1px] border-zinc-700 px-2  py-3 text-sm tracking-[0.01em] text-foreground outline-indigo-700 focus-within:border-transparent focus-within:outline"
 		>
 			{#each segments.start as { part, value }}
 				<div class="inline-block select-none">
@@ -47,7 +46,7 @@
 				</div>
 			{/each}
 			<DateRangePicker.Trigger
-				class="active:bg-dark-10 ml-auto inline-flex size-8 items-center justify-center rounded-[5px] text-foreground/60 transition-all hover:bg-muted"
+				class="active:bg-dark-10  inline-flex size-8 items-center justify-center rounded-[5px] text-foreground/60 transition-all hover:bg-muted"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

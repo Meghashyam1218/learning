@@ -43,18 +43,18 @@
 	}
 </script>
 
-<section class="login container mx-auto rounded-md w-[100vw] min-h-[100vh] p-4 flex">
+<section class="login container mx-auto flex min-h-[100vh] w-[100vw] rounded-md p-4">
 	<LoginImage name="Register"></LoginImage>
 	<div
-		class="form-container bg-slate-100 sm:basis-2/3 md:basis-1/2 px-10 flex flex-col justify-center mx-auto"
+		class="form-container mx-auto flex flex-col justify-center bg-slate-100 px-4 sm:basis-2/3 md:basis-1/2 md:px-10"
 	>
 		<form
 			method="POST"
 			on:submit|preventDefault={registerUser}
-			class="mt-10 flex flex-col gap-4 mx-auto w-[100%] max-w-[400px]"
+			class="mx-auto mt-10 flex w-[100%] max-w-[400px] flex-col gap-4"
 		>
 			<div class="header">
-				<h2 class="welcome font-semibold text-4xl font-mono text-zinc-700 tracking-tight">
+				<h2 class="welcome font-mono text-4xl font-semibold tracking-tight text-zinc-700">
 					Welcome!
 				</h2>
 				<h3 class="welcome-text">Your gateway to knowledge starts here.</h3>
@@ -67,7 +67,7 @@
 					type="text"
 					bind:value={name}
 					placeholder="Enter your name"
-					class="outline-none py-2 px-4 mt-2 rounded-lg bg-transparent border-[1px] border-zinc-800 focus:border-transparent focus:outline-indigo-900 tracking-wide"
+					class="mt-2 rounded-lg border-[1px] border-zinc-800 bg-transparent px-4 py-2 tracking-wide outline-none focus:border-transparent focus:outline-indigo-900"
 				/>
 			</div>
 			<Age bind:age />
@@ -80,7 +80,7 @@
 					type="email"
 					bind:value={email}
 					placeholder="Enter your mail address"
-					class="outline-none py-2 px-4 mt-2 rounded-lg bg-transparent border-[1px] border-zinc-800 focus:border-transparent focus:outline-indigo-900 tracking-wide"
+					class="mt-2 rounded-lg border-[1px] border-zinc-800 bg-transparent px-4 py-2 tracking-wide outline-none focus:border-transparent focus:outline-indigo-900"
 				/>
 			</div>
 			<div class="input-feild flex flex-col">
@@ -93,14 +93,14 @@
 					type="password"
 					bind:value={password}
 					placeholder="Enter your password"
-					class="outline-none py-2 px-4 mt-2 rounded-lg bg-transparent border-[1px] border-zinc-800 focus:border-transparent focus:outline-indigo-900 tracking-wide"
+					class="mt-2 rounded-lg border-[1px] border-zinc-800 bg-transparent px-4 py-2 tracking-wide outline-none focus:border-transparent focus:outline-indigo-900"
 				/>
 			</div>
-			<button type="submit" class="bg-indigo-800 py-2 px-1 mt-4 text-slate-200 text-xl rounded-md"
+			<button type="submit" class="mt-4 rounded-md bg-indigo-800 px-1 py-2 text-xl text-slate-200"
 				>Register</button
 			>
 		</form>
-		<p class="mx-auto w-[100%] max-w-[400px] text-center mt-5 mb-10">
+		<p class="mx-auto mb-10 mt-5 w-[100%] max-w-[400px] text-center">
 			Already having an account ? <a
 				href="/login"
 				class="font-medium text-indigo-800 underline underline-offset-2">Login here</a

@@ -106,3 +106,8 @@ html.lenis body {
 .image-container {
 	view-transition-name: image-container;
 }
+.visually-hidden {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
