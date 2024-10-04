@@ -43,6 +43,7 @@
 		"learning": "file:",
 		"lenis": "^1.1.13",
 		"lucide-svelte": "^0.441.0",
+		"ngrok": "^5.0.0-beta.2",
 		"node-fetch": "^3.3.2",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1"
