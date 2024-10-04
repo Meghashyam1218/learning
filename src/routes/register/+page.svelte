@@ -1,4 +1,6 @@
 <script>
+	const ngrokURL = import.meta.env.NGROK_URL;
+
 	import LoginImage from '../../lib/components/LoginImage.svelte';
 
 	import Age from './Age.svelte';
@@ -28,7 +30,7 @@
 		console.log('Form submitted with:', formData);
 
 		try {
-			const response = await fetch('http://localhost:3000/api/auth/register', {
+			const response = await fetch('{ngrokURL}/api/auth/register', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(formData)
@@ -40,7 +42,7 @@
 				const loginData = { email: formData.email, password: formData.password };
 
 				// Step 2: Auto-login after successful registration
-				const loginResponse = await fetch('http://localhost:3000/api/auth/login', {
+				const loginResponse = await fetch('{ngrokURL}/api/auth/login', {
 					method: 'POST',
 					headers: {
 					'Content-Type': 'application/json',

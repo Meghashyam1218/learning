@@ -1,4 +1,5 @@
 <script lang="ts">
+	const ngrokURL = import.meta.env.NGROK_URL;
     import LoginImage from '../../lib/components/LoginImage.svelte';
     import SelectGoals from './SelectGoals.svelte';
     import ContentType from './ContentType.svelte';
@@ -60,7 +61,7 @@
 
 			// Define headers and API URL once
 			const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
-			const apiUrl = 'http://localhost:3000/api/goals';
+			const apiUrl = '{ngrokURL}/api/goals';
 
 			// Create a list of promises for all goal submissions
 			const goalPromises = selectedItems.map((goal, index) => {
@@ -133,7 +134,7 @@
 
 		// Define headers and API URL
 		const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
-		const apiUrl = 'http://localhost:3000/api/preferences';
+		const apiUrl = '{ngrokURL}/api/preferences';
 
 		// Prepare the payload
 		const payload = {
@@ -189,7 +190,7 @@
 
 		// Define headers and API URL
 		const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
-		const apiUrl = 'http://localhost:3000/api/profile';
+		const apiUrl = '{ngrokURL}/api/profile';
 
 		// Prepare the payload
 		const payload = {
