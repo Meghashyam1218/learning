@@ -1,6 +1,9 @@
 <script>
-	const ngrokURL = import.meta.env.NGROK_URL;
+	import { NGROK_URL } from '../../stores';
+	let ngrokUrl;
 
+	// Subscribe to the ngrokUrl store
+	$: ngrokUrl = $NGROK_URL;
 	import LoginImage from '../../lib/components/LoginImage.svelte';
 
 	import Age from './Age.svelte';
@@ -45,15 +48,15 @@
 				const loginResponse = await fetch('{ngrokURL}/api/auth/login', {
 					method: 'POST',
 					headers: {
-					'Content-Type': 'application/json',
+						'Content-Type': 'application/json'
 					},
-					body: JSON.stringify(loginData),
+					body: JSON.stringify(loginData)
 				});
 
 				const loginResult = await loginResponse.json();
-				if(loginResponse.status == 201 && loginResult.token){
+				if (loginResponse.status == 201 && loginResult.token) {
 					// Step 3: Store JWT token securely (e.g., in localStorage or a cookie)
-					if(typeof window !== 'undefined'){
+					if (typeof window !== 'undefined') {
 						localStorage.setItem('token', loginResult.token);
 						localStorage.setItem('username', username);
 						localStorage.setItem('userAge', age);
@@ -64,11 +67,10 @@
 					console.log('Registration successful:', result.message);
 					alert('Registration successful! Redirecting to onboarding...');
 					window.location.href = '/onBoarding';
-				}else{
+				} else {
 					console.error('Login failed:', loginResult.error);
 					alert(`Login failed: ${loginResult.message}`);
 				}
-
 			} else {
 				console.error('Registration failed:', result.error);
 				alert(`Registration failed: ${result.message}`);
@@ -82,14 +84,23 @@
 
 <section class="login container mx-auto flex min-h-[100vh] w-[100vw] rounded-md p-4">
 	<LoginImage name="Register" />
-	<div class="form-container mx-auto flex flex-col justify-center bg-slate-100 px-4 sm:basis-2/3 md:basis-1/2 md:px-10">
-		<form on:submit|preventDefault={registerUser} class="mx-auto mt-10 flex w-[100%] max-w-[400px] flex-col gap-4">
+	<div
+		class="form-container mx-auto flex flex-col justify-center bg-slate-100 px-4 sm:basis-2/3 md:basis-1/2 md:px-10"
+	>
+		<form
+			on:submit|preventDefault={registerUser}
+			class="mx-auto mt-10 flex w-[100%] max-w-[400px] flex-col gap-4"
+		>
 			<div class="header">
-				<h2 class="welcome font-mono text-4xl font-semibold tracking-tight text-zinc-700">Welcome!</h2>
+				<h2 class="welcome font-mono text-4xl font-semibold tracking-tight text-zinc-700">
+					Welcome!
+				</h2>
 				<h3 class="welcome-text">Your gateway to knowledge starts here.</h3>
 			</div>
 			<div class="input-field mt-2 flex flex-col">
-				<label for="username" class="font-medium">Username <span class="text-red-500">*</span></label>
+				<label for="username" class="font-medium"
+					>Username <span class="text-red-500">*</span></label
+				>
 				<input
 					id="username"
 					name="username"
@@ -111,7 +122,9 @@
 				/>
 			</div>
 			<div class="input-field flex flex-col">
-				<label for="password" class="font-medium">Password <span class="text-red-500">*</span></label>
+				<label for="password" class="font-medium"
+					>Password <span class="text-red-500">*</span></label
+				>
 				<input
 					id="password"
 					name="password"
@@ -126,10 +139,15 @@
 			<Location bind:location />
 			<Yoe bind:experience />
 			<CurrentRole bind:currentRole />
-			<button type="submit" class="mt-4 rounded-md bg-indigo-800 px-1 py-2 text-xl text-slate-200">Register</button>
+			<button type="submit" class="mt-4 rounded-md bg-indigo-800 px-1 py-2 text-xl text-slate-200"
+				>Register</button
+			>
 		</form>
 		<p class="mx-auto mb-10 mt-5 w-[100%] max-w-[400px] text-center">
-			Already have an account? <a href="/login" class="font-medium text-indigo-800 underline underline-offset-2">Login here</a>
+			Already have an account? <a
+				href="/login"
+				class="font-medium text-indigo-800 underline underline-offset-2">Login here</a
+			>
 		</p>
 	</div>
 </section>
