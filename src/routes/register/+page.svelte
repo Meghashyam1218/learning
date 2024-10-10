@@ -4,6 +4,7 @@
 
 	// Subscribe to the ngrokUrl store
 	$: ngrokUrl = $NGROK_URL;
+	console.log(ngrokUrl);
 	import LoginImage from '../../lib/components/LoginImage.svelte';
 
 	import Age from './Age.svelte';
@@ -45,13 +46,16 @@
 				const loginData = { email: formData.email, password: formData.password };
 
 				// Step 2: Auto-login after successful registration
-				const loginResponse = await fetch('{ngrokURL}/api/auth/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(loginData)
-				});
+				const loginResponse = await fetch(
+					'https://696d-103-230-101-69.ngrok-free.app/api/auth/login',
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(loginData)
+					}
+				);
 
 				const loginResult = await loginResponse.json();
 				if (loginResponse.status == 201 && loginResult.token) {
