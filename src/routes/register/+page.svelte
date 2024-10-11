@@ -36,7 +36,7 @@
 		console.log('Form submitted with:', formData);
 
 		try {
-			const response = await fetch('https://696d-103-230-101-69.ngrok-free.app/api/auth/register', {
+			const response = await fetch('${ngrokUrl}/api/auth/register', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(formData)
@@ -49,7 +49,7 @@
 
 				// Step 2: Auto-login after successful registration
 				const loginResponse = await fetch(
-					'https://696d-103-230-101-69.ngrok-free.app/api/auth/login',
+					'${ngrokUrl}/api/auth/login',
 					{
 						method: 'POST',
 						headers: {
