@@ -1,10 +1,12 @@
 <script>
 	import { NGROK_URL } from '../../stores';
-	let ngrokUrl;
+	let ngrokUrl = NGROK_URL;
 
 	// Subscribe to the ngrokUrl store
-	$: ngrokUrl = $NGROK_URL;
-	console.log(ngrokUrl);
+	NGROK_URL.subscribe((value) => {
+		ngrokUrl = value;
+   });	
+   	$: console.log(ngrokUrl);
 	import LoginImage from '../../lib/components/LoginImage.svelte';
 
 	import Age from './Age.svelte';
