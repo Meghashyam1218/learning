@@ -1,9 +1,11 @@
 <script>
 	import { NGROK_URL } from '../../stores';
-	let ngrokUrl;
+	let ngrokUrl = NGROK_URL;
 
 	// Subscribe to the ngrokUrl store
-	$: ngrokUrl = $NGROK_URL;
+	NGROK_URL.subscribe((value) => {
+		ngrokUrl = value;
+   });	
 	import Seperator from './Seperator.svelte';
 	import LoginImage from '../../lib/components/LoginImage.svelte';
 	let email = '';
@@ -19,7 +21,7 @@
 
 		try {
 			// Send POST request to login API
-			const response = await fetch('{ngrokURL}/api/auth/login', {
+			const response = await fetch(`${ngrokUrl}/api/auth/login`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload)

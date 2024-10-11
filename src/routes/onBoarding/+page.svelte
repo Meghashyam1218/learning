@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { NGROK_URL } from '../../stores';
-	let ngrokUrl;
+	let ngrokUrl = NGROK_URL;
 
 	// Subscribe to the ngrokUrl store
-	$: ngrokUrl = $NGROK_URL;
+	NGROK_URL.subscribe((value) => {
+		ngrokUrl = value;
+   });	
 	import LoginImage from '../../lib/components/LoginImage.svelte';
 	import SelectGoals from './SelectGoals.svelte';
 	import ContentType from './ContentType.svelte';
@@ -77,7 +79,7 @@
 
 		// Define headers and API URL once
 		const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-		const apiUrl = '{ngrokURL}/api/goals';
+		const apiUrl = `${ngrokUrl}/api/goals`;
 
 		// Create a list of promises for all goal submissions
 		const goalPromises = selectedItems.map((goal, index) => {
@@ -156,7 +158,7 @@
 
 		// Define headers and API URL
 		const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-		const apiUrl = '{ngrokURL}/api/preferences';
+		const apiUrl = `${ngrokUrl}/api/preferences`;
 
 		// Prepare the payload
 		const payload = {
@@ -212,7 +214,7 @@
 
 		// Define headers and API URL
 		const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-		const apiUrl = '{ngrokURL}/api/profile';
+		const apiUrl = `${ngrokUrl}/api/profile`;
 
 		// Prepare the payload
 		const payload = {
